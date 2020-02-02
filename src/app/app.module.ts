@@ -3,23 +3,30 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StationFormComponent } from './components/station-form/station-form.component';
-import { StationListComponent } from './components/station-list/station-list.component';
-import { BusListComponent } from './components/bus-list/bus-list.component';
-import { BusFormComponent } from './components/bus-form/bus-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { BusListModule } from './components/bus-list/bus-list.module';
+import { BusFormModule } from './components/bus-form/bus-form.module';
+import { StationFormModule } from './components/station-form/station-form.module';
+import { StationListModule } from './components/station-list/station-list.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    StationFormComponent,
-    StationListComponent,
-    BusListComponent,
-    BusFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    StationFormModule,
+    FormsModule,
+    BusFormModule,
+    BusListModule,
+    MatDialogModule,
+    StationListModule
   ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })

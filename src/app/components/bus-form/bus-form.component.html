@@ -1,1 +1,49 @@
-<p>bus-form works!</p>
+<div>
+    <p>Bus Form</p>
+    <button mat-raised-button color="primary" (click)="openAddStationDialog()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Station
+    </button>
+
+    <div *ngIf="stationList.stationList.length === 0">
+        No Station Found please add new Station
+    </div>
+    <mat-accordion *ngIf="stationList.stationList.length > 0">
+        <mat-expansion-panel *ngFor="let station of stationList.stationList">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Station #: {{station.uuid}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div>
+                        Slots: {{station.numberOfSlots}} Free Slots: {{station.getFreeSlots()}}
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="number" [formControl]="numberOfSlots" placeholder="Slots #">
+                        <mat-error *ngIf="numberOfSlots.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="updateSlots(station,numberOfSlots.value)">
+                        Update Slots
+                    </button>
+                </div>
+                <div>
+                    <h4>{{station.busList.length === 0 ?'No bus found':'Available Buses: '}}</h4>
+                    <button mat-raised-button color="primary" (click)="openStationListDialog(station.uuid)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon> Add Bus
+                    </button>
+                </div>
+                <div *ngIf="station.busList.length === 0">
+                    <p>please goto Station List Page to assign bus to the current station</p>
+                </div>
+                <div class="bus" *ngIf="station.busList.length > 0">
+                    <button *ngFor="let bus of station.busList" mat-raised-button color="primary">
+                        {{slot + 1}}
+                    </button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

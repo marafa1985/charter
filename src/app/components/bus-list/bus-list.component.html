@@ -1,1 +1,10 @@
-<p>bus-list works!</p>
+<input matInput [(ngModel)]="name" placeholder="What's your name?">
+<mat-form-field>
+  <mat-label>Toppings</mat-label>
+  <mat-select [formControl]="toppings" multiple>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-mini-fab color="primary" (click)="openAddBussDialog()">
+  <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+</button>

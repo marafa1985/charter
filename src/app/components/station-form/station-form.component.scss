@@ -1,0 +1,12 @@
+.stationForm {
+  display: flex;
+  flex-direction: column;
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+  }
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}
