@@ -10,7 +10,7 @@ export enum BusType {
 export interface IBus {
     plate: string;
     busType: BusType;
-    station?: number;
+    station: number;
 }
 
 export class Bus implements IBus {
@@ -27,11 +27,11 @@ export class Bus implements IBus {
 
 export class BusList {
     busList: Bus[];
-    constructor() {
-        this.busList = [];
+    constructor(busList: Bus[] = []) {
+        this.busList = busList;
     }
     addBus(plateNumber: string, busType: BusType, stationId: number): ISystemMessages {
-        const isBusExists = this.busList.find((bus) => bus.plate === plateNumber)
+        const isBusExists = this.busList.find((bus) => bus.plate === plateNumber);
         if (isBusExists) {
             return {
                 message: Message.BUS_EXISTS_ERROR,
@@ -43,6 +43,10 @@ export class BusList {
             message: Message.BUS_ADD_SUCCESS,
             messageType: MessageType.SUCCESS
         };
+    }
+
+    getBusByStationID(stationId: number): Bus[] {
+        return this.busList.filter((bus) => bus.station === stationId);
     }
 }
 

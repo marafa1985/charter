@@ -1,0 +1,31 @@
+.mat-toolbar {
+  background: #73d700 !important;
+
+  font-family: Roboto Condensed, Arial, sans-serif;
+  .appLinks {
+    display: flex;
+    font-size: 16px;
+    color: #fff;
+    height: 100%;
+    align-items: center;
+    .active {
+      color: #fff;
+      border-bottom: 5px solid #fff;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      text-decoration: none;
+      height: 100%;
+    }
+  }
+}
+
+.mat-toolbar-single-row {
+  height: 60px;
+}
+
+.content{
+    margin: 20px;
+}

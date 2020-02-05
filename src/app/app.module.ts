@@ -10,6 +10,8 @@ import { BusListModule } from './components/bus-list/bus-list.module';
 import { BusFormModule } from './components/bus-form/bus-form.module';
 import { StationFormModule } from './components/station-form/station-form.module';
 import { StationListModule } from './components/station-list/station-list.module';
+import { MatTabsModule, MatToolbarModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { StationListModule } from './components/station-list/station-list.module
     BusFormModule,
     BusListModule,
     MatDialogModule,
-    StationListModule
+    StationListModule,
+    MatTabsModule,
+    RouterModule,
+    MatToolbarModule
   ],
   entryComponents: [],
   providers: [],

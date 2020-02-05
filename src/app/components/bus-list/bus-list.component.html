@@ -1,10 +1,50 @@
-<input matInput [(ngModel)]="name" placeholder="What's your name?">
-<mat-form-field>
-  <mat-label>Toppings</mat-label>
-  <mat-select [formControl]="toppings" multiple>
-    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<button mat-mini-fab color="primary" (click)="openAddBussDialog()">
-  <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
-</button>
+<div class="busList">
+  <mat-form-field>
+    <mat-label>Stations</mat-label>
+    <mat-select multiple [(ngModel)]="stationSelectedList" (selectionChange)="filterBusTable()">
+      <mat-option *ngFor="let station of stationList.stationList" [value]="station.uuid">
+        Station #: {{station.uuid}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select Bus Type</mat-label>
+    <mat-select multiple [(ngModel)]="busTypeSelectedList" (selectionChange)="filterBusTable()">
+      <mat-option value="BusType.Regular">Regular</mat-option>
+      <mat-option value="BusType.DoubleDecker">Double Decker</mat-option>
+      <mat-option value="BusType.MiniBus">MiniBus</mat-option>
+      <mat-option value="BusType.HybridBus">HybridBus</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <span matPrefix>BUS-</span>
+      <input matInput [(ngModel)]="plateNumber" maxlength="7" (input)="filterBusTable()">
+    </mat-form-field>
+  </div>
+</div>
+
+<div>
+  <ngx-datatable class="material busTable" [rows]="dataSource" [headerHeight]="50" [footerHeight]="50" rowHeight="auto"
+    [limit]="5">
+    <ngx-datatable-column prop="plate" name="Plate #">
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="basType" name="Bus Type">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div>
+          {{row.busType.split('.')[1]}}
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="station" name="Station">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div>
+          Station #: {{row.station}}
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+
+</div>

@@ -1,4 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/material.scss";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+html,
+body {
+  height: 100%;
+}
+* {
+  margin: 0;
+  font-family: Roboto Condensed, Arial, sans-serif !important ;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {
+  width: 100% !important;
+}
+
+.ngx-datatable .datatable-row-center {
+  width: 100% !important;
+}
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  flex-grow: 1;
+  width: unset !important;
+}
+.ngx-datatable .datatable-body .datatable-scroll {
+  width: 100% !important;
+}
+
+.ngx-datatable .datatable-body .datatable-body-row {
+  width: 100% !important;
+}
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  flex-grow: 1;
+}

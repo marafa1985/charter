@@ -1,7 +1,30 @@
+$primary: #73d700;
+*{
+  color: #757575;
+}
+.primary {
+  background: $primary !important;
+  margin: 10px;
+  color: #fff !important;
+}
 .bus {
   display: flex;
   flex-wrap: wrap;
   button {
-    margin: 2px;
+    margin: 5px;
   }
+}
+
+.free {
+  margin-left: 10px;
+  background: $primary !important;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.full {
+  margin-left: 10px;
+  background: #f44336;
+  color: #fff;
+  padding: 5px 10px;
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StationList, Station } from 'src/app/models/station';
 import { StationFormComponent } from '../station-form/station-form.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { StationListComponent, IStationList } from '../station-list/station-list.component';
 import { BusList } from 'src/app/models/bus';
+import { CharterService } from 'src/app/service/charter.service';
 
 @Component({
   selector: 'app-bus-form',
@@ -12,29 +13,44 @@ import { BusList } from 'src/app/models/bus';
   styleUrls: ['./bus-form.component.scss']
 })
 export class BusFormComponent implements OnInit {
-  stationList = new StationList();
-  busList = new BusList();
+  stationList: StationList = new StationList();
+  busList: BusList = new BusList();
   numberOfSlots = new FormControl(0, [Validators.required, Validators.min(0)]);
-  constructor(public stationDialog: MatDialog, public stationListDialog: MatDialog) { }
+  constructor(public stationDialog: MatDialog,
+              public stationListDialog: MatDialog,
+              public charterService: CharterService) {
+    this.charterService.getDataFromLocalStorage().then(() => {
+      this.stationList = charterService.stationList;
+      this.busList = charterService.busList;
+    });
+
+  }
 
   ngOnInit() {
   }
   openAddStationDialog() {
-    this.stationDialog.open(StationFormComponent, {
+    const stationDialog = this.stationDialog.open(StationFormComponent, {
       disableClose: true,
       width: '50%',
       data: this.stationList
     });
+    stationDialog.afterClosed().subscribe(() => {
+      this.charterService.saveDataToLocalStorage();
+    });
   }
-  openStationListDialog(stationId: number) {
+  openStationListDialog(station: Station) {
     const dataDialog: IStationList = {
-      stationId,
+      stationId: station.uuid,
       busList: this.busList
     };
-    this.stationDialog.open(StationListComponent, {
+    const stationDialog = this.stationDialog.open(StationListComponent, {
       disableClose: true,
       width: '50%',
       data: dataDialog
+    });
+    stationDialog.afterClosed().subscribe(() => {
+      station.updateStationBusesList(this.busList.getBusByStationID(station.uuid));
+      this.charterService.saveDataToLocalStorage();
     });
   }
   getErrorMessage() {
@@ -45,6 +61,7 @@ export class BusFormComponent implements OnInit {
   updateSlots(station: Station, numberOfSlots: number) {
     if (this.numberOfSlots.errors === null) {
       station.setSlotsNumber(numberOfSlots);
+      this.charterService.saveDataToLocalStorage();
     }
   }
 }

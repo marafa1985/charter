@@ -1,3 +1,4 @@
+$primary: #73d700;
 .stationForm {
   display: flex;
   flex-direction: column;
@@ -9,4 +10,13 @@
     display: flex;
     justify-content: space-between;
   }
+  .primary {
+    background: $primary !important;
+    margin: 10px;
+    color: #fff !important;
+  }
+}
+
+*{
+  color: #757575;
 }

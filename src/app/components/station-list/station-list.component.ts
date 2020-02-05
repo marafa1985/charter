@@ -35,7 +35,8 @@ export class StationListComponent {
   }
   onNewBusClicked() {
     if (this.busType.errors === null && this.plateNumber.errors === null) {
-      this.data.busList.addBus(this.busType.value, this.busType.value, this.data.stationId);
+      this.data.busList.addBus(this.plateNumber.value, this.busType.value, this.data.stationId);
+      this.addStationRef.close();
     }
     if (this.busType.errors) {
       this.busType.markAsTouched();

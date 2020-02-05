@@ -1,3 +1,4 @@
+$primary: #73d700;
 .newBus {
   display: flex;
   flex-direction: column;
@@ -5,4 +6,14 @@
 .actions {
   display: flex;
   justify-content: space-between;
+}
+
+.primary {
+  background: $primary !important;
+  margin: 10px;
+  color: #fff !important;
+}
+
+*{
+  color: #757575;
 }

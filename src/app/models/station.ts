@@ -1,5 +1,5 @@
 import { ISystemMessages, Message, MessageType } from './sysConfig';
-import { IBus } from './bus';
+import { IBus, Bus } from './bus';
 
 
 export enum ISlotStatus {
@@ -30,11 +30,14 @@ export class Station implements IStation {
     }
 
     getFreeSlots(): number {
+        if (this.numberOfSlots - this.busList.length <= 0) {
+            this.hasEmptySlot = false;
+        }
         return this.numberOfSlots - this.busList.length;
     }
 
     setSlotsNumber(numberOfSlots: number): ISystemMessages {
-        if (this.numberOfSlots < this.busList.length) {
+        if (this.numberOfSlots > this.busList.length) {
             return {
                 message: Message.STATION_UPDATE_SLOTS_NUMBER_ERROR,
                 messageType: MessageType.ERROR
@@ -46,13 +49,15 @@ export class Station implements IStation {
             messageType: MessageType.SUCCESS
         };
     }
+    updateStationBusesList(busList: Bus[]) {
+        this.busList = [...busList];
+    }
 }
-
 
 export class StationList {
     stationList: Station[];
-    constructor() {
-        this.stationList = [];
+    constructor(stationList: Station[] = []) {
+        this.stationList = stationList.map((station) => new Station(station.uuid, station.numberOfSlots));
     }
 
     // return next Station uuid to accept new station

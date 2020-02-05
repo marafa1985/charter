@@ -1,1 +1,9 @@
-<app-bus-form></app-bus-form>
+<mat-toolbar class="navMeu">
+    <div class="appLinks">
+        <a routerLink="/busList" routerLinkActive="active">Bus List</a> |
+        <a routerLink="/busForm" routerLinkActive="active">Add Bus</a>
+    </div>
+  </mat-toolbar>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
